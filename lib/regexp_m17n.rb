@@ -1,7 +1,6 @@
 module RegexpM17N
   def self.non_empty?(str)
-    str.encode!(Encoding::UTF_8) if str.encoding.dummy?
-    r = Regexp.new('^.+$'.encode(str.encoding), Regexp::FIXEDENCODING)
-    str =~ r
+    str.force_encoding(Encoding::BINARY) if str.encoding.dummy?
+    str =~ Regexp.new('^.+$'.encode(str.encoding), Regexp::FIXEDENCODING)
   end
 end
